@@ -23,7 +23,7 @@ pub enum Card {
     Number { color: Color, number: u8 },
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Eq, Hash, PartialEq)]
 pub enum Color {
     Red,
     Green,
