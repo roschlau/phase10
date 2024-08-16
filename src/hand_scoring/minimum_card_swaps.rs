@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::deck::Card;
 use crate::hand_scoring::count_colors::count_colors;
 use crate::hand_scoring::count_numbers::count_numbers;
@@ -8,23 +9,22 @@ fn calculate_minimum_card_swaps(goal: &PhaseGoal, hand: Vec<Card>) -> u8 {
     match goal {
         XOfNumber(x) => {
             let number_frequencies = count_numbers(hand);
-            return x - number_frequencies
-                .iter()
-                .max_by(|a, b| a.1.cmp(&b.1))
-                .map(|max_entry| max_entry.1.clone())
-                .unwrap_or(0);
+            return x - get_highest_entry(number_frequencies, 0);
         }
         XOfColor(x) => {
             let color_frequencies = count_colors(hand);
-            return x - color_frequencies
-                .iter()
-                .max_by(|a, b| a.1.cmp(&b.1))
-                .map(|max_entry| max_entry.1.clone())
-                .unwrap_or(0);
+            return x - get_highest_entry(color_frequencies, 0);
         }
         RunOfX(_x) => {}
     }
     todo!()
+}
+
+fn get_highest_entry<K>(map: HashMap<K, u8>, default: u8) -> u8 {
+    map.iter()
+        .max_by(|a, b| a.1.cmp(&b.1))
+        .map(|max_entry| max_entry.1.clone())
+        .unwrap_or(default)
 }
 
 #[cfg(test)]
