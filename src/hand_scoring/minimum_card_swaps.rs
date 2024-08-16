@@ -9,18 +9,18 @@ fn calculate_minimum_card_swaps(goal: &PhaseGoal, hand: Vec<Card>) -> u8 {
     match goal {
         XOfNumber(x) => {
             let number_frequencies = count_numbers(hand);
-            return x.saturating_sub(get_highest_entry(number_frequencies, 0));
+            return x.saturating_sub(get_highest_value(number_frequencies, 0));
         }
         XOfColor(x) => {
             let color_frequencies = count_colors(hand);
-            return x.saturating_sub(get_highest_entry(color_frequencies, 0));
+            return x.saturating_sub(get_highest_value(color_frequencies, 0));
         }
         RunOfX(_x) => {}
     }
     todo!()
 }
 
-fn get_highest_entry<K, V : Ord + Clone>(map: HashMap<K, V>, default: V) -> V {
+fn get_highest_value<K, V : Ord + Clone>(map: HashMap<K, V>, default: V) -> V {
     map.iter()
         .max_by(|(_, a_value), (_, b_value)| a_value.cmp(&b_value))
         .map(|(_, value)| value.clone())
