@@ -9,18 +9,18 @@ fn create_shuffled_deck() -> Vec<Card> {
     result.append(&mut vec![Skip; 4]);
     for color in [Red, Green, Yellow, Purple] {
         for number in 1..=12 {
-            result.append(&mut vec![Number { number, color }; 2])
+            result.append(&mut vec![Number(color, number); 2])
         }
     }
     result.shuffle(&mut thread_rng());
     result
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Card {
     Joker,
     Skip,
-    Number { color: Color, number: u8 },
+    Number(Color, u8)
 }
 
 #[derive(Debug, Clone, Copy, Eq, Hash, PartialEq)]

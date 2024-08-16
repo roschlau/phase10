@@ -48,9 +48,9 @@ mod calculate_minimum_card_swaps_test {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfNumber(3),
             vec![
-                Card::Number { number: 5, color: Red },
-                Card::Number { number: 5, color: Green },
-                Card::Number { number: 3, color: Purple },
+                Card::Number(Red, 5),
+                Card::Number(Green, 5),
+                Card::Number(Purple, 3),
             ],
         );
         assert_eq!(result, 1)
@@ -61,9 +61,9 @@ mod calculate_minimum_card_swaps_test {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfNumber(2),
             vec![
-                Card::Number { number: 5, color: Red },
-                Card::Number { number: 5, color: Green },
-                Card::Number { number: 3, color: Purple },
+                Card::Number(Red, 5),
+                Card::Number(Green, 5),
+                Card::Number(Purple, 3),
             ],
         );
         assert_eq!(result, 0)
@@ -74,9 +74,9 @@ mod calculate_minimum_card_swaps_test {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfNumber(1),
             vec![
-                Card::Number { number: 5, color: Red },
-                Card::Number { number: 5, color: Green },
-                Card::Number { number: 3, color: Purple },
+                Card::Number(Red, 5),
+                Card::Number(Green, 5),
+                Card::Number(Purple, 3),
             ],
         );
         assert_eq!(result, 0)
@@ -96,9 +96,9 @@ mod calculate_minimum_card_swaps_test {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfColor(4),
             vec![
-                Card::Number { number: 5, color: Red },
-                Card::Number { number: 8, color: Green },
-                Card::Number { number: 3, color: Red },
+                Card::Number(Red, 5),
+                Card::Number(Green, 8),
+                Card::Number(Red, 3),
             ],
         );
         assert_eq!(result, 2)
@@ -109,9 +109,9 @@ mod calculate_minimum_card_swaps_test {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfColor(2),
             vec![
-                Card::Number { number: 5, color: Red },
-                Card::Number { number: 8, color: Green },
-                Card::Number { number: 3, color: Red },
+                Card::Number(Red, 5),
+                Card::Number(Green, 8),
+                Card::Number(Red, 3),
             ],
         );
         assert_eq!(result, 0)
@@ -122,9 +122,9 @@ mod calculate_minimum_card_swaps_test {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfColor(1),
             vec![
-                Card::Number { number: 5, color: Red },
-                Card::Number { number: 8, color: Green },
-                Card::Number { number: 3, color: Red },
+                Card::Number(Red, 5),
+                Card::Number(Green, 8),
+                Card::Number(Red, 3),
             ],
         );
         assert_eq!(result, 0)
