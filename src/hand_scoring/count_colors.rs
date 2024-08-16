@@ -19,7 +19,7 @@ pub fn count_colors(hand: Vec<Card>) -> HashMap<Color, u8> {
 #[cfg(test)]
 mod tests {
     use std::collections::HashMap;
-    use crate::deck::Card;
+    use crate::deck::{Card, CardNumber};
     use crate::hand_scoring::count_colors::count_colors;
     use crate::deck::Color::{Green, Purple, Red};
 
@@ -42,9 +42,9 @@ mod tests {
     #[test]
     fn count_colors_counts_colors_disregarding_number() {
         let result = count_colors(vec![
-            Card::Number(Red, 1),
-            Card::Number(Green, 1),
-            Card::Number(Red, 3),
+            Card::new(Red, 1),
+            Card::new(Green, 1),
+            Card::new(Red, 3),
         ]);
         assert_eq!(result, HashMap::from([
             (Red, 2),
@@ -55,11 +55,11 @@ mod tests {
     #[test]
     fn count_colors_full_test() {
         let result = count_colors(vec![
-            Card::Number(Red, 1),
-            Card::Number(Green, 1),
-            Card::Number(Red, 6),
+            Card::new(Red, 1),
+            Card::new(Green, 1),
+            Card::new(Red, 6),
             Card::Skip,
-            Card::Number(Purple, 3),
+            Card::new(Purple, 3),
             Card::Joker,
         ]);
         assert_eq!(result, HashMap::from([

@@ -4,7 +4,7 @@ use std::collections::HashMap;
 fn runs_by_length(hand: Vec<Card>) -> HashMap<u8, Vec<Card>> {
     let mut number_cards = hand.into_iter()
         .filter_map(|card| match card {
-            Card::Number(_, number) => Some((number, card)),
+            Card::Number(color, number) => Some((number, color)),
             _ => None,
         })
         .collect::<Vec<_>>();
@@ -12,7 +12,7 @@ fn runs_by_length(hand: Vec<Card>) -> HashMap<u8, Vec<Card>> {
     if number_cards.is_empty() {
         HashMap::new()
     } else {
-        HashMap::from([(1, vec![number_cards[0].1.clone()])])
+        HashMap::from([(1, vec![number_cards[0].clone().into()])])
     }
 }
 
@@ -20,6 +20,7 @@ fn runs_by_length(hand: Vec<Card>) -> HashMap<u8, Vec<Card>> {
 mod tests {
     use super::*;
     use crate::deck::Card::{Joker, Skip};
+    use crate::deck::CardNumber;
     use crate::deck::Color::Yellow;
 
     #[test]
@@ -38,10 +39,10 @@ mod tests {
 
     #[test]
     fn returns_singleton_run_on_hand_with_one_card() {
-        let card = Card::Number(Yellow, 5);
+        let card = Card::new(Yellow, 5);
         let result = runs_by_length(vec![card]);
         assert_eq!(
-            HashMap::from([(1, vec![Card::Number(Yellow, 5)])]),
+            HashMap::from([(1, vec![Card::new(Yellow, 5)])]),
             result,
         )
     }
