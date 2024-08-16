@@ -9,11 +9,11 @@ fn calculate_minimum_card_swaps(goal: &PhaseGoal, hand: Vec<Card>) -> u8 {
     match goal {
         XOfNumber(x) => {
             let number_frequencies = count_numbers(hand);
-            return x - get_highest_entry(number_frequencies, 0);
+            return x.saturating_sub(get_highest_entry(number_frequencies, 0));
         }
         XOfColor(x) => {
             let color_frequencies = count_colors(hand);
-            return x - get_highest_entry(color_frequencies, 0);
+            return x.saturating_sub(get_highest_entry(color_frequencies, 0));
         }
         RunOfX(_x) => {}
     }
@@ -70,6 +70,19 @@ mod calculate_minimum_card_swaps_test {
     }
 
     #[test]
+    fn returns_0_on_overfulfilled_number_goal() {
+        let result = calculate_minimum_card_swaps(
+            &PhaseGoal::XOfNumber(1),
+            vec![
+                Card::Number { number: 5, color: Red },
+                Card::Number { number: 5, color: Green },
+                Card::Number { number: 3, color: Purple },
+            ],
+        );
+        assert_eq!(result, 0)
+    }
+
+    #[test]
     fn returns_color_count_goal_count_on_empty_hand() {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfColor(5),
@@ -95,6 +108,19 @@ mod calculate_minimum_card_swaps_test {
     fn returns_0_on_exact_color_match() {
         let result = calculate_minimum_card_swaps(
             &PhaseGoal::XOfColor(2),
+            vec![
+                Card::Number { number: 5, color: Red },
+                Card::Number { number: 8, color: Green },
+                Card::Number { number: 3, color: Red },
+            ],
+        );
+        assert_eq!(result, 0)
+    }
+
+    #[test]
+    fn returns_0_on_overfulfilled_color_goal() {
+        let result = calculate_minimum_card_swaps(
+            &PhaseGoal::XOfColor(1),
             vec![
                 Card::Number { number: 5, color: Red },
                 Card::Number { number: 8, color: Green },
