@@ -20,10 +20,10 @@ fn calculate_minimum_card_swaps(goal: &PhaseGoal, hand: Vec<Card>) -> u8 {
     todo!()
 }
 
-fn get_highest_entry<K>(map: HashMap<K, u8>, default: u8) -> u8 {
+fn get_highest_entry<K, V : Ord + Clone>(map: HashMap<K, V>, default: V) -> V {
     map.iter()
-        .max_by(|a, b| a.1.cmp(&b.1))
-        .map(|max_entry| max_entry.1.clone())
+        .max_by(|(_, a_value), (_, b_value)| a_value.cmp(&b_value))
+        .map(|(_, value)| value.clone())
         .unwrap_or(default)
 }
 
